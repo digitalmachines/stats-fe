@@ -1,15 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
+import Schedule from './components/Schedule'; 
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           StatsEngine
         </p>
       </header>
+      <Schedule/>
     </div>
   );
 }
