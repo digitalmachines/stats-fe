@@ -2,36 +2,82 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'; 
 
 export default function Schedule(){
-
-    const [schedule, setSchedule] = useState({}); 
-
+    
+    const teamStats = []; 
+    const [check, setCheck] = useState(false); 
+    const [teams, setTeams] = useState([{
+        id: '',
+        name: '' , 
+        evGGARatio: '',
+        faceOffWinPercentage: '',
+        faceOffsLost: '',
+        faceOffsTaken: '',
+        faceOffsWon: '',
+        gamesPlayed: '',
+        goalsAgainstPerGame: '',
+        goalsPerGame: '',
+        losses: '',
+        ot: '',
+        penaltyKillPercentage: '',
+        powerPlayGoals: '',
+        powerPlayGoalsAgainst: '',
+        powerPlayOpportunities: '',
+        powerPlayPercentage: '',
+        ptPctg: '',
+        pts: '',
+        savePctg: '',
+        shootingPctg: '',
+        shotsAllowed: '',
+        shotsPerGame: '',
+        winLeadFirstPer: '',
+        winLeadSecondPer: '',
+        winOppScoreFirst: '',
+        winOutshootOpp: '',
+        winOutshotByOpp: '',
+        winScoreFirst: '',
+        wins: '',
+    }])
 
     useEffect(()=>{
-        const options = {
-            method: 'GET',
-            url: 'https://soccer-data.p.rapidapi.com/tournament/list',
-            headers: {
-              'x-rapidapi-key': '4aee90be7fmsh9202d58924972e2p165ac7jsnf291319cbd26',
-              'x-rapidapi-host': 'soccer-data.p.rapidapi.com'
-            }
-          };
-          
-          axios.request(options).then(function (response) {
-              console.log(response.data);
-              setSchedule(response.data); 
-          }).catch(function (error) {
-              console.error(error);
-          });
+          axios.get('https://statsapi.web.nhl.com/api/v1/teams/1/stats')
+            .then(function (response) {
+                console.log(response);
+                
+                const id = response.data.stats[0].splits[0].team.id;
+                const name = response.data.stats[0].splits[0].team.name;
+                const type = response.data.stats[0].type.gameType;
+                const stats = {
+                    id: response.data.stats[0].splits[0].team.id, 
+                    name, 
+                    singleSeason: {
+                        stats: response.data.stats[0].splits[0].stat,
+                        description: type.description,
+                        id: type.id,
+                        postseason: type.postseason,
+                    }
+                }
 
-    }, [])
+                console.log(stats); 
+                teamStats[id] = {stats}; 
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+
+    }, [check])
+
+    function getSchedule(){
+        console.log('Check is set to ', check)
+        setCheck(!check); 
+        console.log(teamStats)
+    }
     
-
     return(
         <div>
             <h1>
                 Schedule
             </h1>
-            {schedule}
+            <button onClick={()=>getSchedule()}>Get Schedule</button>
         </div>
     )
 }
