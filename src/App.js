@@ -1,7 +1,7 @@
 import './App.css';
 import Schedule from './components/Schedule'; 
 import Stats from './components/Stats'; 
-import BoxScores from './components/BoxScores'; 
+import PrimarySearchAppBar from './components/PrimarySearchAppBar'; 
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
           StatsEngine
         </p>
       </header>
+      <PrimarySearchAppBar/>
       <Schedule/>
       {/* <BoxScores/> */}
       <Stats/>
