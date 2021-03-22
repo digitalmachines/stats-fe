@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid'; 
 import axios from 'axios'; 
 import NHLGame from './NHLGame'; 
+import './components.css';
 
 export default function BoxScores(){
 
@@ -42,9 +43,9 @@ export default function BoxScores(){
     }
     
     return(
-        <div>
+        <div className='Schedule'>
             <h1>
-                Today's Games
+                Schedule
             </h1>
             <input type='date' name='date' value={schedule.date} onChange={changeDate}></input>
             <button onClick={()=>getSchedule()}>Get Schedule</button>

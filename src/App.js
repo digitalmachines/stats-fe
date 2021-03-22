@@ -2,6 +2,7 @@ import './App.css';
 import Schedule from './components/Schedule'; 
 import Stats from './components/Stats'; 
 import PrimarySearchAppBar from './components/PrimarySearchAppBar'; 
+import Over from './components/Over'; 
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         </p>
       </header>
       <PrimarySearchAppBar/>
+      <Over/>
       <Schedule/>
       {/* <BoxScores/> */}
       <Stats/>
